@@ -1,0 +1,56 @@
+{% extends 'main.html'%}
+{% block title %}
+RegistrationCart
+{% endblock title %}
+
+{% block body %}
+
+<section class="bg-light py-4 my-5" style="min-height:600px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h4 class="mb-3">  {{products}} Details</h4>
+        <hr style="border-color:#b8bfc2;">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'collections' %}">Collections</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{products}}</li>
+          </ol>
+        </nav>
+          {% include 'message.html' %}
+      </div>
+      <div class="col-4 my-3 pic-box">
+        {% if products.trending %}
+          <div class="hot"style="background-color:orangered;color: white;width: 50px;text-align: center;font-weight: bold;display: inline;border-radius: 5px;padding: 5px;position: absolute;top: 20px;right: 20px;z-index: 10;">Hot</div>
+          {% endif %}
+      <div class="col-4 my-3 pic-box">
+          <img src="{{products.product_image.url}}"  class="card-image-top" alt="{{products}}" style="width:350px;height:350px;">
+      </div>
+      </div>
+      <div class="col-8 my-3">
+          <h5 class="text-success">{{products | upper}}</h5>
+          <p>{{products.vendor}}</p>
+          <p>{{products.description}}</p>
+          <h6 class="my-2 text-danger">Current Price : Rs. <s>{{products.original_price}}</s></h6>
+          <h5 class="my-2 text-primary">Offer Price   : Rs.{{products.selling_price}}</h5>
+          <div class="my-3">
+
+                <div class="input-group" style="width:150px">
+                  <button class="input-group-text bg-success text-light" id="btnMinus" ><i class="fa fa-minus"></i></button>
+                    <input type="text" name="qty" id="txtQty" value="1" class="form-control text-center">
+                  <button class="input-group-text bg-success text-light" id="btnPlus"><i class="fa fa-plus"></i></button>
+                </div>
+
+            {% if products.quantity > 0 %}
+             <button class="btn btn-primary" id="btnCart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+              <button class="btn btn-danger" id="btnFav"><i class="fa fa-heart"></i></button>
+              {% else %}
+              <button class="input-group-text bg-danger text-light" id="btnMinus" ><i class="fa fa-minus">Out Of Stock</i></button>
+            {% endif %}
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+    {% endblock body %}
